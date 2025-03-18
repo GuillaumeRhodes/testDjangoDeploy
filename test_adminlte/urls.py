@@ -17,8 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from core.views import dashboard
+from core.views import test1
+from core.views import posts
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('dashboard/', dashboard, name='dashboard'),
+    path('test1/', test1, name='test1'),
+    path('posts/', posts, name='posts'),
 ]

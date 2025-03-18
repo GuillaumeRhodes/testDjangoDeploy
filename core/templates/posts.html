@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Liste des articles{% endblock %}
+
+{% block content %}
+    <h1>Articles API publique</h1>
+    <ul>
+        {% for post in posts %}
+            <li><strong>{{ post.title }}</strong> : {{ post.body }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
