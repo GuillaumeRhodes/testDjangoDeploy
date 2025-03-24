@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'adminlte3',
     'core',
+    
 ]
 
 MIDDLEWARE = [
@@ -80,11 +83,12 @@ WSGI_APPLICATION = 'test_adminlte.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='postgresql://testbdd_user:fkvETkgPHSVe5l6d6GB6EJERTUNiVh9m@dpg-cvdd7g2n91rc73dfiuq0-a.frankfurt-postgres.render.com/testbdd'
+    )
 }
+
+
 
 
 # Password validation
