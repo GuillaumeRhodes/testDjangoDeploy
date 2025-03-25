@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'adminlte3',
     'core',
+    'produits',
+    'clients',
     
 ]
 
@@ -63,7 +65,7 @@ ADMIN_LTE3_LOGIN_TEMPLATE = 'adminlte3/login.html'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "core/templates"],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

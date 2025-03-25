@@ -1,6 +1,6 @@
 import requests
 from django.shortcuts import render
-from .models import Produit
+from produits.models import Produit
 
 
 
@@ -17,4 +17,3 @@ def posts(request):
     posts = response.json()
 
     return render(request, 'posts.html', {'posts': posts})
-
