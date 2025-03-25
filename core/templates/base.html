@@ -59,25 +59,6 @@
                             <p>EXEMPLE</p>
                         </li>
                         <li class="nav-item">
-                            <a href="/test1" class="nav-link {% if request.path == '/test1/' %}active{% endif %}">
-                                <i class="nav-icon fas fa-home"></i>
-                                <p>Page 1</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/posts" class="nav-link {% if request.path == '/posts/' %}active{% endif %}">
-                                <i class="nav-icon fas fa-home"></i>
-                                <p>Liste des posts</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{% url 'produit_list' %}" class="nav-link {% if request.path == '/produits/' %}active{% endif %}">
-
-                                <i class="nav-icon fas fa-home"></i>
-                                <p>Produits</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="/clients" class="nav-link {% if request.path == '/clients/' %}active{% endif %}">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>Clients</p>

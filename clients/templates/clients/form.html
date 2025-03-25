@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-{% block title %}Formulaire client{% endblock %}
+{% block title %}{{ view.object|default:"Créer" }} Client{% endblock %}
 {% block content %}
 <h1>{% if view.object %}Modifier{% else %}Créer{% endif %} un client</h1>
 <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-success">Valider</button>
-    <a href="{% url 'client_list' %}" class="btn btn-secondary">Annuler</a>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-success">💾 Enregistrer</button>
+  <a href="{% url 'client_list' %}" class="btn btn-secondary">↩️ Retour</a>
 </form>
 {% endblock %}

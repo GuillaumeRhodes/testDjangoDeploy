@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'adminlte3',
     'core',
-    'produits',
     'clients',
     
 ]
@@ -86,7 +85,7 @@ WSGI_APPLICATION = 'test_adminlte.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://testbdd_user:fkvETkgPHSVe5l6d6GB6EJERTUNiVh9m@dpg-cvdd7g2n91rc73dfiuq0-a.frankfurt-postgres.render.com/testbdd'
+        default='postgresql://testbdd_v0sj_user:LnnLxb3P8be4EV7Cx4eBnzOvGPkNipzn@dpg-cvhbnm52ng1s73bejgag-a.frankfurt-postgres.render.com/testbdd_v0sj'
     )
 }
 

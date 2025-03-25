@@ -3,22 +3,135 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-    <h1>Bienvenue sur le Dashboard</h1>
+<h1>Bienvenue sur le Dashboard</h1>
 
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Produits</h3>
-                </div>
-                <div class="card-body">
-                    {% for produit in produits %}
-                        <p>ID: {{ produit.id }} - {{ produit.nom }}</p>
-                    {% empty %}
-                        <p>Aucun produit disponible.</p>
-                    {% endfor %}
-                </div>
+<div class="row">
+    <!-- Environnement IFS Card -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title">Environnement IFS</h3>
+                <span class="badge badge-light float-right" id="env-ifs-count"></span>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover" id="env-ifs-table">
+                    <thead>
+                        <tr><th>ID</th><th>Nom</th><th></th></tr>
+                    </thead>
+                    <tbody>
+                        {% for client in clients_env_ifs %}
+                        <tr data-id="{{ client.id }}">
+                            <td>{{ client.id }}</td>
+                            <td>{{ client.nom }}</td>
+                            <td class="text-right">
+                                <button class="btn btn-sm btn-outline-success move-to-env-cfg">
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+
+    <!-- Environnement CFG Card -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h3 class="card-title">Environnement CFG</h3>
+                <span class="badge badge-light float-right" id="env-cfg-count"></span>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover" id="env-cfg-table">
+                    <thead>
+                        <tr><th>ID</th><th>Nom</th><th></th></tr>
+                    </thead>
+                    <tbody>
+                        {% for client in clients_env_cfg %}
+                        <tr data-id="{{ client.id }}">
+                            <td>{{ client.id }}</td>
+                            <td>{{ client.nom }}</td>
+                            <td class="text-right">
+                                <button class="btn btn-sm btn-outline-primary move-to-env-ifs">
+                                    <i class="fas fa-arrow-left"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-3">
+    <button id="save-changes" class="btn btn-warning d-none">💾 Enregistrer les modifications</button>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const envIFSTable = document.querySelector('#env-ifs-table tbody');
+    const envCFGTable = document.querySelector('#env-cfg-table tbody');
+    const saveBtn = document.getElementById('save-changes');
+
+    function updateCounts() {
+      document.getElementById('env-ifs-count').textContent = envIFSTable.rows.length + ' éléments';
+      document.getElementById('env-cfg-count').textContent = envCFGTable.rows.length + ' éléments';
+    }
+
+    function showSaveButton() {
+      saveBtn.classList.remove('d-none');
+    }
+
+    document.body.addEventListener('click', function (e) {
+      if (e.target.closest('.move-to-env-cfg')) {
+        const row = e.target.closest('tr');
+        row.querySelector('.move-to-env-cfg').outerHTML = `
+          <button class="btn btn-sm btn-outline-primary move-to-env-ifs">
+            <i class="fas fa-arrow-left"></i>
+          </button>`;
+        envCFGTable.appendChild(row);
+        updateCounts();
+        showSaveButton();
+      }
+      if (e.target.closest('.move-to-env-ifs')) {
+        const row = e.target.closest('tr');
+        row.querySelector('.move-to-env-ifs').outerHTML = `
+          <button class="btn btn-sm btn-outline-success move-to-env-cfg">
+            <i class="fas fa-arrow-right"></i>
+          </button>`;
+        envIFSTable.appendChild(row);
+        updateCounts();
+        showSaveButton();
+      }
+    });
+
+    saveBtn.addEventListener('click', function () {
+      if (!confirm("Confirmer l'enregistrement des modifications ?")) return;
+
+      const envIFS = Array.from(envIFSTable.querySelectorAll('tr')).map(row => row.dataset.id);
+      const envCFG = Array.from(envCFGTable.querySelectorAll('tr')).map(row => row.dataset.id);
+
+      fetch("{% url 'dashboard_save_changes' %}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": '{{ csrf_token }}'
+        },
+        body: JSON.stringify({ env_ifs: envIFS, env_cfg: envCFG })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert("Modifications enregistrées avec succès ✔️");
+        saveBtn.classList.add('d-none');
+      })
+      .catch(() => alert("Erreur lors de l'enregistrement ❌"));
+    });
+
+    updateCounts();
+  });
+</script>
 {% endblock %}

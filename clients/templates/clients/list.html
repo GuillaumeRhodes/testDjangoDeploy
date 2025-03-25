@@ -2,25 +2,27 @@
 {% block title %}Liste des clients{% endblock %}
 {% block content %}
 <h1>Liste des clients</h1>
-<a href="{% url 'client_create' %}" class="btn btn-primary mb-3">+ Ajouter un client</a>
-
-<div class="row">
+<a href="{% url 'client_create' %}" class="btn btn-primary mb-3">➕ Ajouter un client</a>
+<table class="table table-bordered">
+  <thead class="thead-light">
+    <tr><th>ID</th><th>Nom</th><th>Email</th><th>Environnement</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
     {% for client in object_list %}
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">{{ client.nom }}</h3>
-                </div>
-                <div class="card-body">
-                    <p>{{ client.email }}</p>
-                    <a href="{% url 'client_detail' client.pk %}" class="btn btn-info btn-sm">Voir</a>
-                    <a href="{% url 'client_update' client.pk %}" class="btn btn-warning btn-sm">Modifier</a>
-                    <a href="{% url 'client_delete' client.pk %}" class="btn btn-danger btn-sm">Supprimer</a>
-                </div>
-            </div>
-        </div>
+    <tr>
+      <td>{{ client.id }}</td>
+      <td>{{ client.nom }}</td>
+      <td>{{ client.email }}</td>
+      <td>{{ client.environnement }}</td>
+      <td>
+        <a href="{% url 'client_detail' client.pk %}" class="btn btn-sm btn-info">🔍</a>
+        <a href="{% url 'client_update' client.pk %}" class="btn btn-sm btn-warning">✏️</a>
+        <a href="{% url 'client_delete' client.pk %}" class="btn btn-sm btn-danger">🗑️</a>
+      </td>
+    </tr>
     {% empty %}
-        <p>Aucun client trouvé.</p>
+    <tr><td colspan="5">Aucun client trouvé.</td></tr>
     {% endfor %}
-</div>
+  </tbody>
+</table>
 {% endblock %}

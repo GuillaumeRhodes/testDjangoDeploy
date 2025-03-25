@@ -1,9 +1,0 @@
-{% extends 'base.html' %}
-{% block title %}Détail du produit{% endblock %}
-{% block content %}
-<h1>{{ object.nom }}</h1>
-<p>{{ object.description }}</p>
-<a href="{% url 'produit_update' object.pk %}" class="btn btn-warning">Modifier</a>
-<a href="{% url 'produit_delete' object.pk %}" class="btn btn-danger">Supprimer</a>
-<a href="{% url 'produit_list' %}" class="btn btn-secondary">Retour</a>
-{% endblock %}

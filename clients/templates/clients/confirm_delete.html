@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
-{% block title %}Supprimer le client{% endblock %}
+{% block title %}Supprimer client{% endblock %}
 {% block content %}
-<h1>Supprimer le client</h1>
-<p>Es-tu sûr de vouloir supprimer <strong>{{ object.nom }}</strong> ?</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Oui, supprimer</button>
-    <a href="{% url 'produit_list' %}" class="btn btn-secondary">Non, annuler</a>
+<h1>⚠️ Supprimer le client</h1>
+<p>Êtes-vous sûr de vouloir supprimer le client suivant ?</p>
+<ul class="list-group">
+  <li class="list-group-item">ID : {{ object.id }}</li>
+  <li class="list-group-item">Nom : {{ object.nom }}</li>
+</ul>
+<form method="post" class="mt-3">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">🗑️ Confirmer la suppression</button>
+  <a href="{% url 'client_list' %}" class="btn btn-secondary">↩️ Annuler</a>
 </form>
 {% endblock %}

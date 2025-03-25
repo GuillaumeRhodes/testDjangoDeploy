@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 {% block title %}Détail du client{% endblock %}
 {% block content %}
-<h1>{{ object.nom }}</h1>
-<p>{{ object.email }}</p>
-<a href="{% url 'client_update' object.pk %}" class="btn btn-warning">Modifier</a>
-<a href="{% url 'client_delete' object.pk %}" class="btn btn-danger">Supprimer</a>
-<a href="{% url 'client_list' %}" class="btn btn-secondary">Retour</a>
+<h1>Détails du client</h1>
+<ul class="list-group">
+  <li class="list-group-item"><strong>ID :</strong> {{ object.id }}</li>
+  <li class="list-group-item"><strong>Nom :</strong> {{ object.nom }}</li>
+  <li class="list-group-item"><strong>Email :</strong> {{ object.email }}</li>
+  <li class="list-group-item"><strong>Environnement :</strong> {{ object.environnement }}</li>
+  <li class="list-group-item"><strong>Créé le :</strong> {{ object.created_at }}</li>
+</ul>
+<a href="{% url 'client_update' object.pk %}" class="btn btn-warning mt-3">✏️ Modifier</a>
+<a href="{% url 'client_list' %}" class="btn btn-secondary mt-3">↩️ Retour</a>
 {% endblock %}

@@ -17,14 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from core.views import dashboard
-from core.views import test1
-from core.views import posts
+from core.views import dashboard_save_changes
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('dashboard/', dashboard, name='dashboard'),
-    path('test1/', test1, name='test1'),
-    path('posts/', posts, name='posts'),
-    path('produits/', include('produits.urls')),
     path('clients/', include('clients.urls')),
+    path('dashboard/save/', dashboard_save_changes, name='dashboard_save_changes')
+
 ]
