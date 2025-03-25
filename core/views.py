@@ -34,7 +34,6 @@ def dashboard_save_changes(request):
         env_cfg = data.get('env_cfg', [])
         model = data.get('model')
 
-        # Choix du modèle
         if model == 'clients':
             Model = Client
         elif model == 'types_paiement':
@@ -42,7 +41,6 @@ def dashboard_save_changes(request):
         else:
             return JsonResponse({'error': 'Modèle inconnu'}, status=400)
 
-        # Mise à jour en BDD
         Model.objects.filter(id__in=env_ifs).update(environnement='IFS')
         Model.objects.filter(id__in=env_cfg).update(environnement='CFG')
 
