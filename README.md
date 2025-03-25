@@ -1,7 +1,4 @@
 # **Checklist de déploiement Django + AdminLTE sur Render**
-
-Voici un plan complet étape par étape pour ton prochain projet Django avec AdminLTE.
-
 ---
 
 ## **1. Création du projet Django**
