@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'adminlte3',
     'core',
     'clients',
+    'types_paiement'
     
 ]
 

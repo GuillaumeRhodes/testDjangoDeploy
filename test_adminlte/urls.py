@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('dashboard/', dashboard, name='dashboard'),
     path('clients/', include('clients.urls')),
+    path('types-paiement/', include('types_paiement.urls')),
     path('dashboard/save/', dashboard_save_changes, name='dashboard_save_changes')
 
 ]

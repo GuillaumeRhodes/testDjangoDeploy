@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Détail Type de paiement{% endblock %}
+{% block content %}
+<h1>Détails du type de paiement</h1>
+<ul class="list-group">
+  <li class="list-group-item"><strong>ID :</strong> {{ object.id }}</li>
+  <li class="list-group-item"><strong>Nom :</strong> {{ object.nom }}</li>
+  <li class="list-group-item"><strong>Actif :</strong> {{ object.actif|yesno:'✅,❌' }}</li>
+  <li class="list-group-item"><strong>Environnement :</strong> {{ object.environnement }}</li>
+</ul>
+<a href="{% url 'typepaiement_update' object.pk %}" class="btn btn-warning mt-3">✏️ Modifier</a>
+<a href="{% url 'typepaiement_list' %}" class="btn btn-secondary mt-3">↩️ Retour</a>
+{% endblock %}

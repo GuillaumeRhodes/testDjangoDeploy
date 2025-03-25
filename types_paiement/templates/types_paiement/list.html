@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Liste des types de paiement{% endblock %}
+{% block content %}
+<h1>Types de paiement</h1>
+<a href="{% url 'typepaiement_create' %}" class="btn btn-primary mb-3">➕ Ajouter un type</a>
+<table class="table table-bordered">
+  <thead class="thead-light">
+    <tr><th>ID</th><th>Nom</th><th>Actif</th><th>Environnement</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+    {% for type in object_list %}
+    <tr>
+      <td>{{ type.id }}</td>
+      <td>{{ type.nom }}</td>
+      <td>{{ type.actif|yesno:'✅,❌' }}</td>
+      <td>{{ type.environnement }}</td>
+      <td>
+        <a href="{% url 'typepaiement_detail' type.pk %}" class="btn btn-sm btn-info">🔍</a>
+        <a href="{% url 'typepaiement_update' type.pk %}" class="btn btn-sm btn-warning">✏️</a>
+        <a href="{% url 'typepaiement_delete' type.pk %}" class="btn btn-sm btn-danger">🗑️</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">Aucun type trouvé.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

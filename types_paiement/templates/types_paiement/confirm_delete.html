@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Supprimer Type de paiement{% endblock %}
+{% block content %}
+<h1>⚠️ Supprimer le type de paiement</h1>
+<p>Confirmer la suppression du type suivant :</p>
+<ul class="list-group">
+  <li class="list-group-item">ID : {{ object.id }}</li>
+  <li class="list-group-item">Nom : {{ object.nom }}</li>
+</ul>
+<form method="post" class="mt-3">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">🗑️ Confirmer</button>
+  <a href="{% url 'typepaiement_list' %}" class="btn btn-secondary">↩️ Annuler</a>
+</form>
+{% endblock %}

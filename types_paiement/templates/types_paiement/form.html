@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}{{ view.object|default:"Créer" }} Type de paiement{% endblock %}
+{% block content %}
+<h1>{% if view.object %}Modifier{% else %}Créer{% endif %} un type de paiement</h1>
+<form method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="id_nom">Nom</label>
+    {{ form.nom }}
+  </div>
+  <div class="form-group">
+    <label for="id_actif">Actif</label>
+    {{ form.actif }}
+  </div>
+  <div class="form-group">
+    <label for="id_environnement">Environnement</label>
+    {{ form.environnement }}
+  </div>
+  <button type="submit" class="btn btn-success">💾 Enregistrer</button>
+  <a href="{% url 'typepaiement_list' %}" class="btn btn-secondary">↩️ Retour</a>
+</form>
+{% endblock %}

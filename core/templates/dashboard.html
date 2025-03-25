@@ -5,70 +5,75 @@
 {% block content %}
 <h1>Bienvenue sur le Dashboard</h1>
 
-<div class="row">
-    <!-- Environnement IFS Card -->
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h3 class="card-title">Environnement IFS</h3>
-                <span class="badge badge-light float-right" id="env-ifs-count"></span>
-            </div>
-            <div class="card-body p-0">
-                <table class="table table-hover" id="env-ifs-table">
-                    <thead>
-                        <tr><th>ID</th><th>Nom</th><th></th></tr>
-                    </thead>
-                    <tbody>
-                        {% for client in clients_env_ifs %}
-                        <tr data-id="{{ client.id }}">
-                            <td>{{ client.id }}</td>
-                            <td>{{ client.nom }}</td>
-                            <td class="text-right">
-                                <button class="btn btn-sm btn-outline-success move-to-env-cfg">
-                                    <i class="fas fa-arrow-right"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+<!-- Formulaire de sélection du modèle -->
+<form method="get" class="mb-4 d-flex">
+  <select name="model" class="form-control mr-2">
+    <option value="clients" {% if selected_model == 'clients' %}selected{% endif %}>Clients</option>
+    <option value="types_paiement" {% if selected_model == 'types_paiement' %}selected{% endif %}>Types de paiement</option>
+  </select>
+  <button class="btn btn-primary" type="submit">Afficher</button>
+</form>
 
-    <!-- Environnement CFG Card -->
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header bg-success text-white">
-                <h3 class="card-title">Environnement CFG</h3>
-                <span class="badge badge-light float-right" id="env-cfg-count"></span>
-            </div>
-            <div class="card-body p-0">
-                <table class="table table-hover" id="env-cfg-table">
-                    <thead>
-                        <tr><th>ID</th><th>Nom</th><th></th></tr>
-                    </thead>
-                    <tbody>
-                        {% for client in clients_env_cfg %}
-                        <tr data-id="{{ client.id }}">
-                            <td>{{ client.id }}</td>
-                            <td>{{ client.nom }}</td>
-                            <td class="text-right">
-                                <button class="btn btn-sm btn-outline-primary move-to-env-ifs">
-                                    <i class="fas fa-arrow-left"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div class="row">
+  <!-- Environnement IFS -->
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h3 class="card-title">Environnement IFS</h3>
+        <span class="badge badge-light float-right" id="env-ifs-count"></span>
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-hover" id="env-ifs-table">
+          <thead><tr><th>ID</th><th>Nom</th><th>Actions</th></tr></thead>
+          <tbody>
+            {% for obj in env_ifs %}
+            <tr data-id="{{ obj.id }}">
+              <td>{{ obj.id }}</td>
+              <td>{{ obj.nom }}</td>
+              <td class="text-right">
+                <button class="btn btn-sm btn-outline-success move-to-env-cfg">
+                  <i class="fas fa-arrow-right"></i>
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
+
+  <!-- Environnement CFG -->
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header bg-success text-white">
+        <h3 class="card-title">Environnement CFG</h3>
+        <span class="badge badge-light float-right" id="env-cfg-count"></span>
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-hover" id="env-cfg-table">
+          <thead><tr><th>ID</th><th>Nom</th><th>Actions</th></tr></thead>
+          <tbody>
+            {% for obj in env_cfg %}
+            <tr data-id="{{ obj.id }}">
+              <td>{{ obj.id }}</td>
+              <td>{{ obj.nom }}</td>
+              <td class="text-right">
+                <button class="btn btn-sm btn-outline-primary move-to-env-ifs">
+                  <i class="fas fa-arrow-left"></i>
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="text-center mt-3">
-    <button id="save-changes" class="btn btn-warning d-none">💾 Enregistrer les modifications</button>
+  <button id="save-changes" class="btn btn-warning d-none">💾 Enregistrer les modifications</button>
 </div>
 
 <script>
@@ -121,7 +126,7 @@
           "Content-Type": "application/json",
           "X-CSRFToken": '{{ csrf_token }}'
         },
-        body: JSON.stringify({ env_ifs: envIFS, env_cfg: envCFG })
+        body: JSON.stringify({ env_ifs: envIFS, env_cfg: envCFG, model: '{{ selected_model }}' })
       })
       .then(response => response.json())
       .then(data => {
